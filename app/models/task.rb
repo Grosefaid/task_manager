@@ -1,6 +1,8 @@
 class Task < ActiveRecord::Base
   belongs_to :user
 
+  default_scope { order('id DESC') }
+
   validates :name, presence: true
   validates :description, presence: true
 

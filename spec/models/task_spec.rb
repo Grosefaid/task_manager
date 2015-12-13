@@ -7,6 +7,15 @@ describe Task do
     it { should validate_presence_of(:description) }
   end
 
+  context 'default scope' do
+    let!(:task_one) { Task.create(name: 'task 1', description: 'task 1 description') }
+    let!(:task_two) { Task.create(name: 'task 2', description: 'task 2 description') }
+
+    it 'orders by ascending name' do
+      Task.all.should eq [task_two, task_one]
+    end
+  end
+
   context 'associations' do
     it { should belong_to(:user) }
   end

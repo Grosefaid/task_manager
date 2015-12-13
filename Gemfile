@@ -40,6 +40,9 @@ gem 'spring', group: :development
 
 gem 'devise'
 gem 'state_machine'
+gem 'twitter-bootstrap-rails'
+gem 'will_paginate', '~> 3.0.6'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
