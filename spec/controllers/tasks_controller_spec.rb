@@ -165,8 +165,7 @@ describe TasksController do
       end
 
       it "does not change @task's attributes" do
-        put :update, id: @task,
-            task: {name: 'new name', description: nil}
+        put :update, id: @task, task: {name: 'new name', description: nil}
         @task.reload
         @task.name.should_not eq('new name')
         @task.description.should eq('task description')
@@ -179,8 +178,8 @@ describe TasksController do
     end
   end
 
-  describe 'DELETE destroy' do
-    before :each do
+  describe 'DELETE #destroy' do
+    before do
       sign_in :user, create(:user)
       @task = create(:task)
     end
@@ -193,6 +192,69 @@ describe TasksController do
       delete :destroy, id: @task
       response.should redirect_to tasks_url
     end
+  end
+
+  describe 'GET #start' do
+
+    before do
+      @user = create(:user)
+      sign_in :user, @user
+      @task = create(:task, :user => @user)
+    end
+
+    it 'locates the requested @task' do
+      get :start, id: @task
+      assigns(:task).should eq(@task)
+    end
+
+    it 'starts @task' do
+      get :start, id: @task
+      assigns(:task).should be_started
+    end
+
+    it 'doesnt stark task if current user is not owner' do
+      sign_out :user
+      get :start, id: @task
+      assigns(:task).should be_new
+    end
+
+    it 'redirects to tasks#show' do
+      get :start, id: @task
+      response.should redirect_to task_path(@task)
+    end
+
+  end
+
+  describe 'GET #finish' do
+
+    before do
+      @user = create(:user)
+      sign_in :user, @user
+      @task = create(:task, :user => @user)
+      @task.start!
+    end
+
+    it 'locates the requested @task' do
+      get :finish, id: @task
+      assigns(:task).should eq(@task)
+    end
+
+    it 'finishes @task' do
+      get :finish, id: @task
+      assigns(:task).should be_finished
+    end
+
+    it 'doesnt finish task if current user is not owner' do
+      sign_out :user
+      get :finish, id: @task
+      assigns(:task).should be_started
+    end
+
+    it 'redirects to tasks#show' do
+      get :finish, id: @task
+      response.should redirect_to task_path(@task)
+    end
+
   end
 
 end

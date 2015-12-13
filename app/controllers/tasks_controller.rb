@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
-  before_action :find_task, :only => [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, :only => [:new, :edit, :create, :update, :destroy]
+  before_action :find_task, :only => [:show, :edit, :update, :destroy, :start, :finish]
+  before_action :authenticate_user!, :only => [:new, :edit, :create, :update, :destroy, :start, :finish]
 
   def index
     @tasks = Task.paginate(:page => params[:page], :per_page => 10)
@@ -37,6 +37,24 @@ class TasksController < ApplicationController
     @task.delete
     flash[:notice] = 'Задание удалено'
     redirect_to :tasks
+  end
+
+  def start
+    if current_user == @task.user
+      @task.start!
+    else
+      flash[:error] = 'Менять статус задания может только исполнитель'
+    end
+    redirect_to @task
+  end
+
+  def finish
+    if current_user == @task.user
+      @task.finish!
+    else
+      flash[:error] = 'Менять статус задания может только исполнитель'
+    end
+    redirect_to @task
   end
 
   private
