@@ -33,6 +33,20 @@
       <span class="icon-bar"></span>
     </button>
     <%= link_to 'TaskManager', '/', :class => 'navbar-brand' %>
+    <div class="navbar-collapse collapse navbar-responsive-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <% if user_signed_in? %>
+          <p class="navbar-text">
+            Вошли как
+            <%= link_to current_user.email, :controller => :users, :action => :dashboard, :id => current_user.id %>
+          </p>
+          <li><%= link_to 'Выйти', destroy_user_session_path, :method => :delete %></li>
+        <% else %>
+          <li><%= link_to 'Вход', new_user_session_path %></li>
+          <li><%= link_to 'Регистрация', new_user_registration_path %></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>
 

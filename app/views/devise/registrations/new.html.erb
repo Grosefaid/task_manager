@@ -1,0 +1,9 @@
+<div class="col-lg-4">
+  <h2>Регистрация</h2>
+  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-vertical well'}) do |f| %>
+    <%= f.input :email %>
+    <%= f.input :password %>
+    <%= f.input :password_confirmation %>
+    <%= f.button :submit, 'Зарегистрироваться', :class => 'btn-primary' %>
+  <% end %>
+</div>

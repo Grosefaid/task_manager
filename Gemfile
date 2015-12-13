@@ -43,6 +43,7 @@ gem 'state_machine'
 gem 'twitter-bootstrap-rails'
 gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
+gem 'simple_form'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'

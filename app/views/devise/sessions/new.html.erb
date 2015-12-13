@@ -1,0 +1,9 @@
+<div class="col-lg-4">
+  <h2>Вход</h2>
+  <%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical well'}) do |f| %>
+    <%= f.input :email, :autofocus => true %>
+    <%= f.input :password %>
+    <%= f.input :remember_me, :as => :boolean, inline_label: true if devise_mapping.rememberable? %>
+    <%= f.button :submit, 'Войти', :class => 'btn-primary' %>
+  <% end %>
+</div>
