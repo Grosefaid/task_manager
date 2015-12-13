@@ -18,6 +18,7 @@ describe Task do
 
   context 'associations' do
     it { should belong_to(:user) }
+    it { should have_many(:uploads) }
   end
 
   context 'state machine' do

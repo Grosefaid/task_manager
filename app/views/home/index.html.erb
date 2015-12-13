@@ -2,17 +2,9 @@
 <div class="page-header">
   <h1>Welcome page</h1>
 </div>
+
 <table class="table table-striped">
-  <thead>
-  <tr>
-    <th><%= model_class.human_attribute_name(:id) %></th>
-    <th><%= model_class.human_attribute_name(:name) %></th>
-    <th><%= model_class.human_attribute_name(:description) %></th>
-    <th><%= model_class.human_attribute_name(:state) %></th>
-    <th><%= model_class.human_attribute_name(:user_id) %></th>
-    <th><%= model_class.human_attribute_name(:created_at) %></th>
-  </tr>
-  </thead>
+  <%= render :partial => 'tasks/table_header', :locals => {:model_class => model_class} %>
   <tbody>
   <% @tasks.each do |task| %>
     <tr>
@@ -20,12 +12,13 @@
       <td><%= task.name %></td>
       <td><%= task.description %></td>
       <td><%= task.state %></td>
-      <td><%= task.user.email %></td>
+      <td><%= link_to task.user.email, :controller => :users, :action => :dashboard, :id => task.user.id if task.user %></td>
       <td><%= task.created_at %></td>
     </tr>
   <% end %>
   </tbody>
 </table>
+
 <div class="text-center">
   <%= will_paginate @tasks, renderer: BootstrapPagination::Rails %>
 </div>

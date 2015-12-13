@@ -44,6 +44,8 @@ gem 'twitter-bootstrap-rails'
 gem 'will_paginate', '~> 3.0.6'
 gem 'will_paginate-bootstrap'
 gem 'simple_form'
+gem 'nested_form'
+gem 'paperclip', '~> 4.3'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'

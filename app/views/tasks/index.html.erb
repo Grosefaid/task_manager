@@ -1,7 +1,6 @@
 <%- model_class = Task -%>
 <div class="page-header">
-  <h1>Личный кабинет <%= @user.email %></h1>
-  <h2>Задания пользователя</h2>
+  <h1>Все задания</h1>
 </div>
 <table class="table table-striped">
   <%= render :partial => 'tasks/table_header', :locals => {:model_class => model_class} %>
@@ -9,7 +8,6 @@
 </table>
 
 <%= link_to 'Новое задание', new_task_path, :class => 'btn btn-primary' if user_signed_in? %>
-<%= link_to 'Все задания', tasks_path, :class => 'btn btn-primary' %>
 
 <div class="text-center">
   <%= will_paginate @tasks, renderer: BootstrapPagination::Rails %>

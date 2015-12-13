@@ -12,5 +12,19 @@
   <dd><%= @task.state %></dd>
   <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
   <dd><%= link_to @task.user.email, :controller => :users, :action => :dashboard, :id => @task.user.id if @task.user %></dd>
+  <% if @task.uploads.size > 0 %>
+    <dt><strong>Вложения:</strong></dt>
+    <dd>
+      <% @task.uploads.each do |upload| %>
+        <%= image_tag upload.file, :width => 350 %>
+      <% end %>
+    </dd>
+  <% end %>
 </dl>
 
+<%= link_to 'Список заданий', tasks_path, :class => 'btn btn-default' %>
+<% if user_signed_in? %>
+  <%= link_to 'Редактировать', edit_task_path(@task), :class => 'btn btn-default' %>
+  <%= link_to 'Удалить', task_path(@task), :method => 'delete', :class => 'btn btn-danger',
+              :data => {:confirm => t('.confirm', :default => t('helpers.links.confirm', :default => 'Are you sure?'))} %>
+<% end %>

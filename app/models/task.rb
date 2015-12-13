@@ -1,5 +1,8 @@
 class Task < ActiveRecord::Base
   belongs_to :user
+  has_many :uploads, :dependent => :destroy
+
+  accepts_nested_attributes_for :uploads, :reject_if => lambda { |t| t['file'].nil? }, allow_destroy: true
 
   default_scope { order('id DESC') }
 
