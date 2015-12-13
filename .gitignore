@@ -16,6 +16,4 @@
 .keep
 .rvmrc
 /.idea
-/config/database.yml
-/config/secrets.yml
 /tmp
